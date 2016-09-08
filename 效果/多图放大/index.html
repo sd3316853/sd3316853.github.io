@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{margin: 0;padding: 0;}
+		#box{width: 336px;height:336px;overflow: hidden;border: 1px solid #000; padding: 0; margin: 100px auto;}		
+			li{width: 100px;height: 100px;border: 1px solid #ccc;background: yellow;margin: 5px;float: left;list-style: none;}
+			li img{width: 100%;height: 100%;}
+		</style>
+		<script type="text/javascript" src="move.js">
+			
+		</script>
+		<script type="text/javascript">
+			window.onload=function(){
+				var oBox=document.getElementById('box');
+				var aLi=oBox.getElementsByTagName('li');
+				var arr=[];
+				for(var i=0;i<aLi.length;i++){
+					arr[i]={
+						
+						left:aLi[i].offsetLeft,
+						top:aLi[i].offsetTop
+					}
+				};
+				console.log(arr)
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].style.position='absolute';
+					aLi[i].style.left=arr[i].left+'px';
+					aLi[i].style.top=arr[i].top+'px';
+					aLi[i].style.margin=0;
+				}
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].onmouseover=function(){
+						
+						move(this,{width:200,height:200,marginTop:-50,marginLeft:-50},{Time:500})
+						/*this.style.width=200+'px';
+						this.style.height=200+'px';
+						this.style.marginTop=-50+'px';
+						this.style.marginLeft=-50+'px';*/
+						this.style.zIndex=i++;
+					}
+					aLi[i].onmouseout=function(){
+						
+						move(this,{width:100,height:100,margin:0},{Time:500})
+						/*this.style.width=100+'px';
+						this.style.height=100+'px';
+						this.style.margin=0+'px';*/						
+					}
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li><img src="img/4.jpg"/></li>
+				<li><img src="img/5.jpg"/></li>
+				<li><img src="img/6.jpg"/></li>
+				<li><img src="img/7.jpg"/></li>
+				<li><img src="img/8.jpg"/></li>
+				<li><img src="img/9.jpg"/></li>
+				<li><img src="img/10.jpg"/></li>
+				<li><img src="img/11.jpg"/></li>
+				<li><img src="img/12.jpg"/></li>
+			</ul>
+		</div>
+		
+	</body>
+</html>

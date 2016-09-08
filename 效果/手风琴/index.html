@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{margin: 0;padding: 0;list-style: none;}
+			ul{width: 700px;height: 300px; position: relative;overflow: hidden;top:100px;left:400px;}
+			li{width: 500px;height: 300px;float: left; position: absolute;}
+			img{width: 500px;300px}
+		</style>
+		<script type="text/javascript" src="move.js">
+			
+		</script>
+		<script type="text/javascript">
+		
+		window.onload=function(){
+			var oUl=document.getElementById('box');
+			var aLi=oUl.getElementsByTagName('li');
+			var w=50;
+			for(var i=1;i<aLi.length;i++){
+				aLi[i].style.left=oUl.offsetWidth-w*(aLi.length-i)+'px';
+			}
+			for(var i=0;i<aLi.length;i++){
+				aLi[i].index=i;
+				aLi[i].onmouseenter=function(){
+					for(var i=0;i<aLi.length;i++){
+						if(i<=this.index){//0<=1
+							move(aLi[i],{left:w*i});
+							//aLi[i].style.left=w*i+'px';
+						}else{							
+							move(aLi[i],{left:oUl.offsetWidth-w*(aLi.length-i)});
+							//aLi[i].style.left=oUl.offsetWidth-w*(aLi.length-i)+'px';
+						}
+					}
+				};			
+			}
+		};			
+		</script>
+	</head>
+	<body>
+		<ul id="box">
+			<li ><img src="img/1.jpg"/></li>
+			<li ><img src="img/2.jpg"/></li>
+			<li ><img src="img/3.jpg"/></li>
+			<li ><img src="img/4.jpg"/></li>
+			<li ><img src="img/5.jpg"/></li>
+		</ul>
+	</body>
+</html>

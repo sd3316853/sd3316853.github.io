@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div{
+			width:700px;
+			height:400px;
+			margin:100px auto;
+			background:url(img/0.jpg) no-repeat;
+			background-size: 700px 400px;
+			position: relative;
+		}
+		div span{
+			width:100px;
+			height:100px;
+			position: absolute;
+			top:0;
+			left:0;
+			background:url(img/0.jpg) no-repeat;
+			background-size:700px 400px;
+
+			color:yellow;
+			font-size: 50px;
+			text-align: center;
+			line-height: 100px;
+		}
+	</style>
+	<script src='move.js'></script>
+	<script>
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var oBtn=document.getElementById('btn');
+
+		var R=4;
+		var C=7;
+		//创建
+		for(var r=0; r<R; r++){
+			for(var c=0; c<C; c++){
+				var oSpan=document.createElement('span');
+
+				oSpan.style.backgroundPosition=-100*c+'px -'+100*r+'px';
+				oSpan.style.left=100*c+'px';
+				oSpan.style.top=100*r+'px';
+
+				oSpan.c=c;
+				oSpan.r=r;
+
+				oBox.appendChild(oSpan);
+			}
+		}
+
+		var aSpan=oBox.children;
+		var inow=0;
+		var bReady=true;
+		var readyNum=0;
+		oBtn.onclick=function(){
+			if(bReady==false)return;
+
+			readyNum=0;
+			bReady=false;
+			inow++;
+			oBox.style.backgroundImage='url(img/'+inow%3+'.jpg)';
+			for (var i = 0; i < aSpan.length; i++) {
+				(function(index){
+					setTimeout(function(){
+						move(aSpan[index],{'opacity':0},{complete:function(){
+							aSpan[index].style.backgroundImage='url(img/'+inow%3+'.jpg)';
+							aSpan[index].style.opacity='1';
+
+							readyNum++;
+							if(readyNum==aSpan.length){
+								bReady=true;
+							}
+						}
+						});
+					},200*(aSpan[index].c+aSpan[index].r));
+				})(i);
+
+			}
+		};
+	};
+	</script>
+</head>
+<body>
+	<input type="button" value="下一步" id="btn">
+	<div id="box">
+	</div>
+</body>
+</html>

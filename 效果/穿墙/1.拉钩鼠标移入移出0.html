@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社--http://www.zhinengshe.com</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        div{
+            position: absolute;
+            top:100px;
+            left:300px;
+            width:200px;
+            height: 200px;
+            background: red;
+
+        }
+    </style>
+    <script src="../move.js"></script>
+    <script>
+        window.onload = function () {
+            var oDiv=document.getElementById('div1');
+
+            oDiv.onmouseover=function(ev){
+                var enterX=ev.clientX;
+                var enterY=ev.clientY;
+
+                var l=enterX-oDiv.offsetLeft;
+                var r=oDiv.offsetLeft+oDiv.offsetWidth-enterX;
+
+                var t=enterY-oDiv.offsetTop;
+                var b=oDiv.offsetTop+oDiv.offsetHeight-enterY;
+
+              /*var arr=[l,r,t,b];
+                arr.sort(function(n1,n2){
+                    return n1-n2;
+                });*/
+
+                switch(Math.min(l,r,t,b)){
+                    case l:
+                        alert('左');
+                        break;
+                    case r:
+                        alert('右');
+                        break;
+                    case t:
+                        alert('上');
+                        break;
+                    case b:
+                        alert('下');
+                        break;
+                }
+            };
+        };
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>

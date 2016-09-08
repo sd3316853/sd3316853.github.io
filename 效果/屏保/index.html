@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		body{overflow: hidden;}
+			div{width: 100px;
+				height:100px;
+				position: absolute;
+				border-radius: 50%;
+				top: 0;
+				left: 0;
+				}
+		</style>
+		<script type="text/javascript">
+			function rnd(n,m){
+				return parseInt(Math.random()*(m-n)+n);
+			}
+			window.onload=function(){
+				var INmbu=0;
+				var clientW=document.documentElement.clientWidth;
+				var clientH=document.documentElement.clientHeight;
+				for(var i=0;i<10;i++){
+					INmbu++;
+					var aDiv=document.createElement('div');
+					aDiv.style.left=rnd(0,clientW-100)+'px';//设置了随机的左右位置 （视屏宽-div的宽）范围
+					aDiv.style.top=rnd(0,clientH-100)+'px';
+					aDiv.style.background='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')'
+					document.body.appendChild(aDiv);
+				}
+				var aDiv=document.getElementsByTagName('div');
+		
+	
+		
+				for(var i=0;i<aDiv.length;i++){
+					;(function(i){
+							var scrollTop=document.documentElement.scrollTop || document.body.scrollTop;
+					var scrollLeft=document.documentElement.scrollLeft || document.body.scrollLeft;
+					
+					var clientX=document.documentElement.clientWidth;
+					var clientY=document.documentElement.clientHeight;
+					var speedX=3;
+					var speedY=4;
+						timer=setInterval(function(){
+							if(aDiv[i].offsetTop+aDiv[i].offsetHeight>clientY){
+								aDiv[i].style.top=scrollTop+clientY-aDiv[i].offsetHeight+'px';
+								speedY*=-1;
+							}
+							if(aDiv[i].offsetTop<scrollTop){
+								aDiv[i].style.top=scrollTop+'px';
+								speedY*=-1;
+							}						
+							if(aDiv[i].offsetLeft+aDiv[i].offsetWidth>clientX || aDiv[i].offsetLeft<scrollLeft){								
+								speedX*=-1;
+							}
+				
+							aDiv[i].style.left=aDiv[i].offsetLeft+speedX+'px';
+							aDiv[i].style.top=aDiv[i].offsetTop+speedY+'px';;
+						},30)
+					})(i);
+				}
+		
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

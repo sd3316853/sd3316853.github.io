@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		padding: 0;
+		margin:0;
+		list-style: none;
+	}
+	#box {
+		border:1px solid #000;
+		width:800px;
+		height:400px;
+		margin: 50px auto;
+		position: relative;
+	}
+	ul{
+		position: absolute;
+		top:110px;
+		left:0;
+		width:1960px;
+	}
+	ul li{
+		position: relative;
+		float: left;
+		width:260px;
+		height:179px;
+		margin-left: 20px;
+	}
+	ul li img{
+		position: relative;
+		width:100%;
+	}
+	</style>
+	<script>
+	window.onload=function(){
+		var oUl=document.getElementsByTagName('ul')[0];
+		var aLi=oUl.children;
+		var oBox=document.getElementsByTagName('div')[0];
+
+		for(var i=0; i<aLi.length; i++){
+			var dis1=oBox.offsetWidth/2;
+			var dis2=oUl.offsetLeft+aLi[0].offsetWidth/2+aLi[i].offsetLeft;
+
+			var c=Math.abs(dis1-dis2);
+			var scale=1-c/500;
+			if(scale<0.5){
+				scale=0.5;
+			}
+			aLi[i].children[0].style.width=scale*520+'px';
+			aLi[i].children[0].style.marginLeft=-(scale*520-260)/2+'px';
+			aLi[i].children[0].style.marginTop=-(scale*358-179)/2+'px';
+			aLi[i].children[0].style.zIndex=scale*10000;
+		}
+		
+		oUl.onmousedown=function(ev){
+			var oEvent=ev || event;
+			var disX=oEvent.clientX-oUl.offsetLeft;
+			document.onmousemove=function(ev){
+				var oEvent=ev || event;
+				var left=oEvent.clientX-disX;
+
+				if(left>(oBox.offsetWidth/2-aLi[0].offsetWidth/2-aLi[0].offsetLeft)){
+					left=oBox.offsetWidth/2-aLi[0].offsetWidth/2-aLi[0].offsetLeft;
+				}
+				if(left<-(aLi[aLi.length-1].offsetLeft+aLi[0].offsetWidth/2-oBox.offsetWidth/2)){
+					left=-(aLi[aLi.length-1].offsetLeft+aLi[0].offsetWidth/2-oBox.offsetWidth/2);
+				}
+				oUl.style.left=left+'px';
+
+				for(var i=0; i<aLi.length; i++){
+					var dis1=oBox.offsetWidth/2;
+					
+					var dis2=oUl.offsetLeft+aLi[0].offsetWidth/2+aLi[i].offsetLeft;
+
+					var c=Math.abs(dis1-dis2);
+					var scale=1-c/500;
+					if(scale<0.5){
+						scale=0.5;
+					}
+					aLi[i].children[0].style.width=scale*520+'px';
+					aLi[i].children[0].style.marginLeft=-(scale*520-260)/2+'px';
+					aLi[i].children[0].style.marginTop=-(scale*358-179)/2+'px';
+					aLi[i].children[0].style.zIndex=scale*10000;
+				}
+			};
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+			};
+			return false;
+		};
+	};
+	</script>
+</head>
+<body>
+<div id="box">
+	<ul>
+		<li><img src="img3/1.jpg" alt=""></li>
+		<li><img src="img3/2.jpg" alt=""></li>
+		<li><img src="img3/3.jpg" alt=""></li>
+		<li><img src="img3/4.jpg" alt=""></li>
+		<li><img src="img3/5.jpg" alt=""></li>
+		<li><img src="img3/6.jpg" alt=""></li>
+		<li><img src="img3/7.jpg" alt=""></li>
+	</ul>
+</div>
+</body>
+</html>

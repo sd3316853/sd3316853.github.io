@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>三维图片轮换 - 智能设 - www.zhinengshe.com</title>
+<link href="zns_style.css" rel="stylesheet" type="text/css" />
+<script src='../move.js'></script>
+<script>
+function getStyle(obj,name){
+	return (obj.currentStyle || getComputedStyle(obj,false))[name];
+}
+window.onload=function(){
+	var aLi=document.getElementsByTagName('li');
+	var aImg=document.getElementsByTagName('img');
+	var oPrev=document.getElementsByTagName('input')[0];
+	var oNext=document.getElementsByTagName('input')[1];
+
+	var pos=[];
+	//存属性
+	for(var i=0; i<aLi.length; i++){
+		pos[i]={
+			width:aImg[i].offsetWidth,
+			imgTop:aImg[i].offsetTop,
+			top:aLi[i].offsetTop,
+			left:aLi[i].offsetLeft,
+			opacity:getStyle(aImg[i],'opacity')
+		};
+	}
+	//上一个
+	oNext.onclick=function(){
+		pos.push(pos[0]);
+		pos.shift(pos[0]);
+
+		for(var i=0; i<aLi.length; i++){
+			aImg[i].style.width=pos[i].width+'px';
+			aImg[i].style.top=pos[i].imgTop+'px';
+			aLi[i].style.top=pos[i].top+'px';
+			aLi[i].style.left=pos[i].left+'px';
+			aImg[i].style.opacity=pos[i].opacity;
+		}
+	};
+};
+</script>
+</head>
+<body>
+<input type="button" value="上一个" />
+<input type="button" value="下一个" />
+<ul id="znsRotatePic">
+	<li class="pic1">
+		<a href="http://baidu.com/"><img src="images/pic1.gif" alt="pic1" class="unactive" width="187" /></a><!-- 208 -->
+		<span></span>
+	</li>
+	<li class="pic2">
+		<a href="http://google.com/"><img src="images/pic2.gif" alt="pic2" width="208" /></a>
+		<span></span>
+	</li>
+	<li class="pic3">
+		<a href="http://www.zns.com/"><img src="images/pic3.gif" alt="pic3" class="unactive"  width="187" /></a>
+		<span></span>
+	</li>
+</ul>
+
+</body>
+</html>
